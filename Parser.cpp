@@ -16,7 +16,7 @@ _instructions = instructions;*/
 //_instructions.reserve(0);
 
 void Parser::Parse() {
-	
+
 	std::string buffer;
 	std::string tmp;
 	int iterator = 0, i;
@@ -62,10 +62,10 @@ void Parser::Parse() {
 				throw "The line must contain the command number!";
 			_instructions[iterator].number = std::stoi(tmp);
 		}
-		catch(char* str) {
+		catch (char* str) {
 			std::cout << str << std::endl;
 		}
-		
+
 		for (i; buffer[i] == ' ' && i != buffer.size(); ++i) // Running through spaces
 			continue;
 
@@ -185,41 +185,51 @@ void Parser::Parse() {
 		unsigned bsize = buffer.size();
 		for (i = 0; i < bsize; ++i) {
 
-			my_mark: for (i; buffer[i] == ' ' && i != bsize; ++i) // Running through spaces
-				continue;
+		my_mark: for (i; buffer[i] == ' ' && i != bsize; ++i) // Running through spaces
+			continue;
 
-			tmp = "";
-			for (i; isdigit(buffer[i]); ++i) // Getting the number
-				tmp += buffer[i];
+				 tmp = "";
+				 for (i; isdigit(buffer[i]); ++i) // Getting the number
+					 tmp += buffer[i];
 
-			try {
-				if (tmp == "")
-					throw "There must be a number of command before and after \"->\" !";
-				_execution_order.push_back(std::stoi(tmp));
-			}
-			catch (char* str) {
-				std::cout << str << std::endl;
-			}
+				 try {
+					 if (tmp == "")
+						 throw "There must be a number of command before and after \"->\" !";
+					 _execution_order.push_back(std::stoi(tmp));
+				 }
+				 catch (char* str) {
+					 std::cout << str << std::endl;
+				 }
 
-			for (i; buffer[i] == ' ' && i != bsize; ++i) // Running through spaces
-				continue;
+				 for (i; buffer[i] == ' ' && i != bsize; ++i) // Running through spaces
+					 continue;
 
-			tmp = "";
-			for (i; buffer[i] != ' ' && i != bsize; ++i)
-				tmp += buffer[i];
+				 tmp = "";
+				 for (i; buffer[i] != ' ' && i != bsize; ++i)
+					 tmp += buffer[i];
 
-			if (tmp == "->")
-				goto my_mark;
+				 if (tmp == "->")
+					 goto my_mark;
 		}
 	}
-}
 
-std::vector<int> Parser::execution_order() const {
-	return _execution_order;
-}
+	try {
+		for (int it = 0; it != _instructions.size(); ++it)
+			if (_instructions[it].number == _execution_order.front() && _instructions[it].command != "readfile") 
+				throw "The first command must be \"readfile\" !";
+	}
+	catch (char* str) {
+		std::cout << str << std::endl;
+	}
 
-std::vector<Info> Parser::instructions() const {
-	return _instructions;
+	try {
+		for (int it = 0; it != _instructions.size(); ++it)
+			if (_instructions[it].number == _execution_order.back() && _instructions[it].command != "writefile")
+				throw "The last command must be \"writefile\" !";
+	}
+	catch (char* str) {
+		std::cout << str << std::endl;
+	}
 }
 
 //for (int it = 0; it != execution_order.size(); ++it)
@@ -228,3 +238,11 @@ std::vector<Info> Parser::instructions() const {
 //for (int f = 0; f != _instructions.size(); ++f)
 //	std::cout << _instructions[f].number << " " << _instructions[f].comand << " "
 //	<< _instructions[f].operands[0] << "\n";
+
+std::vector<int> Parser::execution_order() const {
+	return _execution_order;
+}
+
+std::vector<Info> Parser::instructions() const {
+	return _instructions;
+}

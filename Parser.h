@@ -2,7 +2,6 @@
 #include "Validator.h"
 #include <fstream>
 #include <iostream>
-#include <locale>
 
 struct Info {
 
