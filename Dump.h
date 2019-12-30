@@ -1,13 +1,13 @@
 #pragma once
 #include "Worker.h"
 
-class Reader : public Worker {
+class Dump : public Worker{
 
-	Type _type = in;
+	Type _type = out;
 public:
 
-	Reader() = default;
+	Dump() = default;
 	std::vector<std::string> operation(const std::vector<std::string> & args, const std::vector<std::string> & text);
 	Type type() const;
-	~Reader() = default;
+	~Dump() = default;
 };

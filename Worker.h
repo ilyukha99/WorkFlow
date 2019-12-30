@@ -1,16 +1,17 @@
 #pragma once
+#include <string>
 #include <vector>
 #include <fstream>
 #include <iostream>
-#include <string>
+#include <map>
 
-enum Worker_id {in, out, in_out};
+enum Type {in, out, in_out};
 
 class Worker {
 
 public:
 	
 	virtual ~Worker() = default;
-	virtual Worker_id get_type() = 0;
-	virtual Worker* operation(std::string & instructions, std::vector<std::string> & text) = 0;
+	virtual std::vector<std::string> operation(const std::vector<std::string> & args, const std::vector<std::string> & text) = 0;
+	virtual Type type() const = 0;
 };

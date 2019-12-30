@@ -3,12 +3,11 @@
 
 class Writer : public Worker {
 
-	const static Worker_id type = out;
-	std::string _output_file_name;
+	Type _type = out;
 public:
 
-	Writer(const std::string & file_name);
-	~Writer();
-	static Worker_id get_type();
-	Worker* operation(std::string & instructions, std::vector<std::string> & text);
+	Writer() = default;
+	std::vector<std::string> operation(const std::vector<std::string> & args, const std::vector<std::string> & text);
+	Type type() const;
+	~Writer() = default;
 };

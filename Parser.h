@@ -1,7 +1,5 @@
 #pragma once
 #include "Validator.h"
-#include <fstream>
-#include <iostream>
 
 struct Info {
 
@@ -13,13 +11,14 @@ struct Info {
 class Parser {
 
 	const std::string _file_name;
-	std::vector<Info> _instructions;
 	std::vector<Validator*> _variants;
+
+	std::vector<Info> _instructions;
 	std::vector<int> _execution_order;
 public:
 
 	Parser(const std::string & file_name);
 	void Parse();
 	std::vector<Info> instructions() const;
-	std::vector<int> Parser::execution_order() const;
+	std::vector<int> execution_order() const;
 };

@@ -1,13 +1,13 @@
 #pragma once
 #include "Worker.h"
 
-class Reader : public Worker {
+class Replace : public Worker {
 
-	Type _type = in;
+	Type _type = in_out;
 public:
 
-	Reader() = default;
+	Replace() = default;
 	std::vector<std::string> operation(const std::vector<std::string> & args, const std::vector<std::string> & text);
 	Type type() const;
-	~Reader() = default;
+	~Replace() = default;
 };

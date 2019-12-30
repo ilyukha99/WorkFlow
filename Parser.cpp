@@ -19,7 +19,7 @@ void Parser::Parse() {
 
 	std::string buffer;
 	std::string tmp;
-	int iterator = 0, i;
+	unsigned iterator = 0, i;
 	std::ifstream file(_file_name);
 
 	try {

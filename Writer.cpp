@@ -1,20 +1,28 @@
 #include "Writer.h"
+#include "BlockMaker.h"
 
-Writer::Writer(const std::string & file_name) : _output_file_name(file_name) {
-}
+static BlockMaker<Writer> writeMaker("writefile");
 
-Worker_id Writer::get_type() {
-	return Writer::type;
-}
-
-Worker* Writer::operation(std::string & instructions, std::vector<std::string> & text) {
+std::vector<std::string> Writer::operation(const std::vector<std::string> & args, const std::vector<std::string> & text) {
 	
-	std::ofstream output_file(_output_file_name);
-	for (int it = 0; !output_file.eof(); ++it) {
-		output_file << text[it];
+	std::vector<std::string> my_vector(text);
+	std::ofstream file(args[0]);
+
+	try {
+		if (!file.is_open())
+			throw "Error opening file!";
 	}
-	return this;
+	catch (char* str) {
+		std::cout << str << std::endl;
+	}
+
+	for (size_t it = 0; it != my_vector.size(); ++it)
+		file << my_vector[it] << "\n";
+
+	file.close();
+	return my_vector;
 }
 
-Writer::~Writer() {
+Type Writer::type() const {
+	return _type;
 }
