@@ -16,7 +16,7 @@ std::vector<std::string> Dump::operation(const std::vector<std::string> & args, 
 		std::cout << str << std::endl;
 	}
 
-	for (size_t it = 0; !file.eof(); ++it)
+	for (size_t it = 0; it != my_vector.size(); ++it)
 		file << my_vector[it] << "\n";
 
 	file.close();
